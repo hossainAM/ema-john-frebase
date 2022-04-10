@@ -31,7 +31,7 @@ const Order = () => {
                         <button className='btn btn-danger'>Proceed Checkout</button>
                     </Link>
                     Or... */}
-                    <button onClick={() => navigate('/inventory')} className='btn btn-danger'>Proceed Checkout</button>
+                    <button onClick={() => navigate('/shipment')} className='btn btn-danger'>Proceed Shipping</button>
                 </Cart>
             </div>
         </div>

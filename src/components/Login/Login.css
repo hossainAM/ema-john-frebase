@@ -14,6 +14,10 @@
     font-weight: 400px;
 }
 
+input {
+    padding-left: 5px;
+}
+
 .input-group{
     margin-bottom: 20px;
 }
@@ -29,7 +33,7 @@
     border: 1px solid #95A0A7;
     box-sizing: border-box;
     border-radius: 5px;
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .form-submit{
