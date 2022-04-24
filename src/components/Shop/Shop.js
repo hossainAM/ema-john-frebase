@@ -24,7 +24,7 @@ const Shop = () => {
         // console.log(storedCart)
         const savedCart = [];
         for(const id in storedCart) {
-            const addedProduct = products.find(product => product.id === id)
+            const addedProduct = products.find(product => product._id === id)
             if(addedProduct) {
                 const quantity = storedCart[id]
                 addedProduct.quantity = quantity;
@@ -38,20 +38,20 @@ const Shop = () => {
     const handleAddToCart = (selectedProduct) => {
         //check and update quantity of existing product in cart
         let newCart = [];
-        const exists = cart.find(product => product.id === selectedProduct.id);
+        const exists = cart.find(product => product._id === selectedProduct._id);
         if(!exists) {
             selectedProduct.quantity = 1;
             newCart = [...cart, selectedProduct];
         }
         else{
-            const rest = cart.filter(product => product.id !== selectedProduct.id);
+            const rest = cart.filter(product => product._id !== selectedProduct._id);
             exists.quantity = exists.quantity + 1;
             newCart = [...rest, exists];
         }
         //cart.push will not work here; copy the existing array elements and put those in new array and add new element will update the existing array;
 
         setCart(newCart);
-        addToDb(selectedProduct.id);//storing product id and quantity into local storage
+        addToDb(selectedProduct._id);//storing product id and quantity into local storage
     } 
     //as cart component is same level as product component, event handler is defined at upper level component and sent as props to product component as cart component will be updated based on it; 
 
@@ -60,7 +60,7 @@ const Shop = () => {
             <div className="products-container">
                 {
                     products.map(product => <Product 
-                        key={product.id}
+                        key={product._id}
                         product={product}
                         handleAddToCart={handleAddToCart}
                         ></Product>) 

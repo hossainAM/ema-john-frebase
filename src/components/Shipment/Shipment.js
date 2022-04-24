@@ -24,7 +24,10 @@ const Shipment = () => {
 
     const handleCreateUser = (e) => {
         e.preventDefault();
-    }
+        const shipping = {name, address, phoneNumber};
+        console.log(shipping);
+    };
+    
     return (
         <div className='form-container'>
             <div>
