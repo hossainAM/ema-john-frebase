@@ -3,12 +3,13 @@ import { addToDb, loadStoredCart } from '../utilities/fakedb';
 import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 import './Shop.css';
-// import useProducts from '../../hooks/useProducts';
 import { Link } from 'react-router-dom';
 import './Shop.css';
+// import useProducts from '../../hooks/useProducts';
+import useCart from '../../hooks/useCart';
 
 const Shop = () => {
-    const [cart, setCart] = useState([]);
+    const [cart, setCart] = useCart();
     //pagination
     const [pageCount, setPageCount] = useState(0)
     const [page, setPage] = useState(0);
@@ -33,21 +34,21 @@ const Shop = () => {
         })
     }, [])
 
-    //load data from storage after reloading browser
-    useEffect(() => {
-        const storedCart = loadStoredCart();
-        // console.log(storedCart)
-        const savedCart = [];
-        for(const id in storedCart) {
-            const addedProduct = products.find(product => product._id === id)
-            if(addedProduct) {
-                const quantity = storedCart[id]
-                addedProduct.quantity = quantity;
-                savedCart.push(addedProduct);
-            }
-        }
-            setCart(savedCart);
-    }, [products]);
+    //load data from storage after reloading browser(use useCart to load added products only)
+    // useEffect(() => {
+    //     const storedCart = loadStoredCart();
+    //     // console.log(storedCart)
+    //     const savedCart = [];
+    //     for(const id in storedCart) {
+    //         const addedProduct = products.find(product => product._id === id)
+    //         if(addedProduct) {
+    //             const quantity = storedCart[id]
+    //             addedProduct.quantity = quantity;
+    //             savedCart.push(addedProduct);
+    //         }
+    //     }
+    //         setCart(savedCart);
+    // }, [products]);
     //first step, will provide an empty array as data fetch is async task and second useEffect will execute before loading data; hence it will depend on 'products'; once data fetched, second useEffect will again call and find the product from products array; 
 
     const handleAddToCart = (selectedProduct) => {
@@ -97,9 +98,9 @@ const Shop = () => {
                 onClick={() => setPage(number)}
                 >{number + 1}</button>)
             }
-            <select onChange={(e) => setSize(e.target.value)}>
+            <select defaultValue={10} onChange={(e) => setSize(e.target.value)}>
                 <option value="5">5</option>
-                <option value="10" selected>10</option>
+                <option value="10">10</option>
                 <option value="15">15</option>
                 <option value="20">20</option>
             </select>
