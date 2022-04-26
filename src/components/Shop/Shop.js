@@ -1,22 +1,37 @@
 import React, { useEffect, useState } from 'react';
-// import { addToDb, loadStoredCart } from '../../../utilities/fakedb';
 import { addToDb, loadStoredCart } from '../utilities/fakedb';
 import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 import './Shop.css';
-import useProducts from '../../hooks/useProducts';
+// import useProducts from '../../hooks/useProducts';
 import { Link } from 'react-router-dom';
+import './Shop.css';
 
 const Shop = () => {
-    const [products, setProducts] = useProducts();
     const [cart, setCart] = useState([]);
-    
-    //fetch data from database
-    // useEffect(() => {
-    //     fetch('/products.json')
-    //     .then(res => res.json())
-    //     .then(data => setProducts(data))
-    // }, []);
+    //pagination
+    const [pageCount, setPageCount] = useState(0)
+    const [page, setPage] = useState(0);
+    const [size, setSize] = useState(10);
+    const [products, setProducts] = useState([]);
+
+    //load products page and size wise
+    useEffect(() => {
+        fetch(`http://localhost:5000/product?page=${page}&size=${size}`)
+            .then(res => res.json())
+            .then(data => setProducts(data))
+    }, [page, size]);
+
+    //for pagination
+    useEffect(() => {
+        fetch('http://localhost:5000/productcount')
+        .then(res => res.json())
+        .then(data => {
+            const count = data.count;
+            const pages = Math.ceil(count/10);
+            setPageCount(pages);
+        })
+    }, [])
 
     //load data from storage after reloading browser
     useEffect(() => {
@@ -56,7 +71,8 @@ const Shop = () => {
     //as cart component is same level as product component, event handler is defined at upper level component and sent as props to product component as cart component will be updated based on it; 
 
     return (
-        <div className='shop-container'>
+        <>
+        <div className='shop-container mb-6'>
             <div className="products-container">
                 {
                     products.map(product => <Product 
@@ -74,6 +90,21 @@ const Shop = () => {
                </Cart>
             </div>
         </div>
+        <div className='pagination d-flex justify-content-center'>
+            {
+                [...Array(pageCount).keys()].map(number => <button
+                className={page === number ? 'selected' : ''}
+                onClick={() => setPage(number)}
+                >{number + 1}</button>)
+            }
+            <select onChange={(e) => setSize(e.target.value)}>
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+            </select>
+        </div>
+        </>
     );
 };
 
