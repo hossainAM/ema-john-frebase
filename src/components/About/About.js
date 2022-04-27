@@ -5,7 +5,7 @@ const About = () => {
     return (
         <div>
             <PageTitle title="About"></PageTitle>
-            <h2>This is Ema John Shopping Mart</h2>
+            <h2>This is Sundorima Shopping Mart</h2>
         </div>
     );
 };

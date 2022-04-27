@@ -3,7 +3,8 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
 import auth from '../../firebase.init';
 import {signOut} from 'firebase/auth';
-import logo from '../../images/Logo.svg';
+// import logo from '../../images/Logo.svg';
+import logo from '../../images/Sundorima-01.png'
 import './Header.css';
 
 const Header = () => {
@@ -15,7 +16,7 @@ const Header = () => {
     
     return (
         <nav className='header'>
-            <img src={logo} alt="" />
+            <img className='w-20 h-75' src={logo} alt="" />
             <div>
                 <Link to='/shop'>Shop</Link>
                 <Link to='/order'>Order</Link>

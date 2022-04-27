@@ -16,6 +16,12 @@
     padding: 20px 30px;
 }
 
+.pagination{
+    background-color: #1C2B35;
+    width:50%;
+    margin: 0 auto;
+}
+
 .pagination button{
     margin-right: 10px;
     background-color: white;
