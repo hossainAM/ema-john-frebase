@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
+import PageTitle from '../PageTitle/PageTitle';
 import './Login.css';
 
 const Login = () => {
@@ -32,6 +33,8 @@ const Login = () => {
     }
 
     return (
+        <>
+        <PageTitle title="Login"></PageTitle>
         <div className='form-container'>
             <div>
                 <h2 className='form-title'>Login</h2>
@@ -61,6 +64,7 @@ const Login = () => {
                 </p>
             </div>
         </div>
+        </>
     );
 };
 

@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import './Shop.css';
 // import useProducts from '../../hooks/useProducts';
 import useCart from '../../hooks/useCart';
+import PageTitle from '../PageTitle/PageTitle';
 
 const Shop = () => {
     const [cart, setCart] = useCart();
@@ -73,6 +74,7 @@ const Shop = () => {
 
     return (
         <>
+        <PageTitle title="Shop"></PageTitle>
         <div className='shop-container mb-6'>
             <div className="products-container">
                 {

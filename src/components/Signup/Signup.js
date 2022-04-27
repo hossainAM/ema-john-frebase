@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Signup.css';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSendEmailVerification } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
+import Spinner from '../Spinner/Spinner'
 
 const Signup = () => {
     const [email, setEmail] = useState('');
@@ -11,7 +12,11 @@ const Signup = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    const [createUserWithEmailAndPassword, user] = useCreateUserWithEmailAndPassword(auth);
+     //Sent email verification
+     const [sendEmailVerification, sending, VerificationError] = useSendEmailVerification(auth);
+
+     //Create user
+    const [createUserWithEmailAndPassword, user] = useCreateUserWithEmailAndPassword(auth, {sendEmailVerification: true});
 
     const handleEmailBlur = (e) => {
         setEmail(e.target.value);
@@ -36,6 +41,10 @@ const Signup = () => {
             return;
         }
         createUserWithEmailAndPassword(email, password)
+    }
+
+    if(loading) {
+        return <Spinner></Spinner>
     }
 
     if(user){
